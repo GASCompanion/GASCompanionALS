@@ -34,7 +34,7 @@ void AGSCALSPlayerController::CreateHUD()
 	if (UIHUDWidget)
 	{
 		// But (re)set owner and init widget from its attributes
-		UIHUDWidget->SetOwnerCharacter(Cast<ACharacter>(GetPawn()));
+		UIHUDWidget->SetOwnerActor(GetPawn());
 		UIHUDWidget->InitFromCharacter();
 		return;
 	}
@@ -53,7 +53,7 @@ void AGSCALSPlayerController::CreateHUD()
 		return;
 	}
 
-	UIHUDWidget->SetOwnerCharacter(Cast<ACharacter>(GetPawn()));
+	UIHUDWidget->SetOwnerActor(GetPawn());
 
 	// Set Attributes
 	UIHUDWidget->InitFromCharacter();
