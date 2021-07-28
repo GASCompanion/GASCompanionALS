@@ -106,8 +106,8 @@ void AGSCALSPlayerController::SetupDebugInputs() const
 			if (InputComponent && DebugComp)
 			{
 				// TODO: Use InputAction
-				// InputComponent->BindKey(FKey("Tab"), EInputEvent::IE_Pressed, DebugComp, &UALSDebugComponent::ToggleHud);
-				InputComponent->BindKey(FKey("L"), EInputEvent::IE_Pressed, DebugComp, &UALSDebugComponent::ToggleHud);
+				InputComponent->BindKey(FKey("Tab"), EInputEvent::IE_Pressed, DebugComp, &UALSDebugComponent::ToggleHud);
+				// InputComponent->BindKey(FKey("L"), EInputEvent::IE_Pressed, DebugComp, &UALSDebugComponent::ToggleHud);
 				InputComponent->BindKey(FKey("V"), EInputEvent::IE_Pressed, DebugComp, &UALSDebugComponent::ToggleDebugView);
 				InputComponent->BindKey(FKey("T"), EInputEvent::IE_Pressed, DebugComp, &UALSDebugComponent::ToggleTraces);
 				InputComponent->BindKey(FKey("Y"), EInputEvent::IE_Pressed, DebugComp, &UALSDebugComponent::ToggleDebugShapes);

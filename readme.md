@@ -16,3 +16,14 @@ Plugin integrating both [GASCompanion](https://gascompanion.github.io/) and [ALS
 
 ![](pie.png)
 
+## Fix Debug Component
+
+If your debug component is not working properly, you need to change something in `ALS_HUD` Widget Blueprint.
+
+From this
+
+![](umg_als_hud.png)
+
+to this
+
+![](umg_als_hud_edited.png)
