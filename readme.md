@@ -2,6 +2,8 @@
 
 Plugin integrating both [GASCompanion](https://gascompanion.github.io/) and [ALSV4_CPP](https://github.com/dyanikoglu/ALS-Community)
 
+**Curent version** 3.0.0 for 4.27 (If you need previous versions for lower version of the engine, check the [Releases](https://github.com/GASCompanion/GASCompanionALS/releases) page and download the appropriate version)
+
 ## Usage
 
 1. Clone the repository into your Project's Plugin directory.
