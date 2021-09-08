@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "2.1.1",
+	"VersionName": "3.0.0",
 	"FriendlyName": "GASCompanionALS",
 	"Description": "Plugin integrating both GASCompanion and ALS-Community (ALSV4_CPP)",
 	"Category": "Gameplay",
@@ -10,6 +10,7 @@
 	"DocsURL": "https://github.com/GASCompanion/GASCompanionALS",
 	"MarketplaceURL": "",
 	"SupportURL": "https://discord.gg/d4rs4vcX6t",
+	"EngineVersion": "4.27.0",
 	"CanContainContent": true,
 	"IsBetaVersion": false,
 	"IsExperimentalVersion": false,

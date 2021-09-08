@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright 2021 Mickael Daniel. All Rights Reserved.
 
 #include "GASCompanionALS.h"
 
@@ -16,5 +16,5 @@ void FGASCompanionALSModule::ShutdownModule()
 }
 
 #undef LOCTEXT_NAMESPACE
-	
+
 IMPLEMENT_MODULE(FGASCompanionALSModule, GASCompanionALS)

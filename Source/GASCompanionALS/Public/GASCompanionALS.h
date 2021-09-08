@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright 2021 Mickael Daniel. All Rights Reserved.
 
 #pragma once
 

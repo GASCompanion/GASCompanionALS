@@ -6,7 +6,7 @@ Plugin integrating both [GASCompanion](https://gascompanion.github.io/) and [ALS
 
 ## Usage
 
-1. Download the approprivate verison for your engine from the [Releases](https://github.com/GASCompanion/GASCompanionALS/releases) page and put it into your Project's Plugin directory.
+1. Download the appropriate verison for your engine from the [Releases](https://github.com/GASCompanion/GASCompanionALS/releases) page and put it into your Project's Plugin directory.
 2. Install [ALSV4_CPP](https://github.com/dyanikoglu/ALS-Community) separately, also in your Project's Plugin directory.
 3. In the Editor, Enable GASCompanion, ALSV4_CPP and GASCompanionALS
 4. Create a GameMode blueprint with the following classes configuration (or use `BP_GSC_ALS_GameMode`)
