@@ -5,14 +5,16 @@
 #include "CoreMinimal.h"
 #include "Character/ALSCharacter.h"
 #include "AbilitySystemInterface.h"
-#include "Core/Interfaces/GSCCompanionInterface.h"
 #include "GSCALSCharacter.generated.h"
 
+class UGSCComboManagerComponent;
+class UGSCCoreComponent;
+class UGSCAbilityQueueComponent;
 /**
  *
  */
 UCLASS()
-class GASCOMPANIONALS_API AGSCALSCharacter : public AALSCharacter, public IAbilitySystemInterface, public IGSCCompanionInterface
+class GASCOMPANIONALS_API AGSCALSCharacter : public AALSCharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -30,24 +32,14 @@ public:
 	/** Combo Manager Component */
 	UPROPERTY(Category = "GSC|Components", VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	UGSCComboManagerComponent* GSCComboComponent;
-	// AttributeSets created in child classes
-	UPROPERTY()
-	TArray<const UAttributeSet*> AttributeSets;
 
 	// Keep track of registered attribute sets to avoid adding it twice
 	UPROPERTY()
 	TArray<FString> RegisteredAttributeSetNames;
 
 	// Implement IAbilitySystemInterface
-	virtual class UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	// ~ IAbilitySystemInterface
-
-	// Implement IGSCCompanionInterface
-	virtual UGSCCoreComponent* GetCompanionCoreComponent() const override;
-	virtual UGSCComboManagerComponent* GetComboManagerComponent() const override;
-	virtual UGSCAbilityQueueComponent* GetAbilityQueueComponent() const override;
-	virtual TArray<const UAttributeSet*> GetAttributeSets() const override;
-	// ~ IGSCCompanionInterface
 
 	// Only called on the Server. Calls before Server's AcknowledgePossession.
 	virtual void PossessedBy(AController* NewController) override;

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Player/GSCPlayerController.h"
+#include "Character/ALSPlayerController.h"
 #include "GSCALSPlayerController.generated.h"
 
 class AGSCALSCharacter;
@@ -12,7 +12,7 @@ class AGSCALSCharacter;
  *
  */
 UCLASS()
-class GASCOMPANIONALS_API AGSCALSPlayerController : public AGSCPlayerController
+class GASCOMPANIONALS_API AGSCALSPlayerController : public AALSPlayerController
 {
 	GENERATED_BODY()
 
@@ -26,7 +26,6 @@ public:
 
 	virtual void OnRep_Pawn() override;
 
-	virtual void CreateHUD() override;
 protected:
 
 	virtual void BeginPlayingState() override;

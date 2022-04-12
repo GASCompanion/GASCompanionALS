@@ -10,7 +10,7 @@
 	"DocsURL": "https://github.com/GASCompanion/GASCompanionALS",
 	"MarketplaceURL": "",
 	"SupportURL": "https://discord.gg/d4rs4vcX6t",
-	"EngineVersion": "4.27.0",
+	"EngineVersion": "5.0.0",
 	"CanContainContent": true,
 	"IsBetaVersion": false,
 	"IsExperimentalVersion": false,

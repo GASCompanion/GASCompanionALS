@@ -4,10 +4,8 @@
 #include "GSCALSPlayerController.h"
 
 #include "GSCALSCharacter.h"
-#include "Actors/Characters/GSCCharacterBase.h"
 #include "Character/ALSPlayerCameraManager.h"
 #include "Components/ALSDebugComponent.h"
-#include "Player/GSCHUD.h"
 #include "UI/GSCUWHud.h"
 
 AGSCALSPlayerController::AGSCALSPlayerController()
@@ -20,46 +18,6 @@ void AGSCALSPlayerController::OnRep_Pawn()
 	Super::OnRep_Pawn();
 	OwnerCharacter = Cast<AGSCALSCharacter>(GetPawn());
 	SetupCamera();
-}
-
-void AGSCALSPlayerController::CreateHUD()
-{
-	// Only create HUD for local player
-	if (!IsLocalPlayerController())
-	{
-		return;
-	}
-
-	// Only create once
-	if (UIHUDWidget)
-	{
-		// But (re)set owner and init widget from its attributes
-		UIHUDWidget->SetOwnerActor(GetPawn());
-		UIHUDWidget->InitFromCharacter();
-		return;
-	}
-
-	AGSCHUD* HUD = Cast<AGSCHUD>(GetHUD());
-	if (!HUD)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AGSCPlayerController::CreateHUD() Couldn't get or cast to AGSCHUD"))
-		return;
-	}
-
-	UIHUDWidget = Cast<UGSCUWHud>(HUD->CreateHUDWidget());
-	if (!UIHUDWidget)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AGSCPlayerController::CreateHUD() Couldn't cast HUD Widget to UGSCUWHud"))
-		return;
-	}
-
-	UIHUDWidget->SetOwnerActor(GetPawn());
-
-	// Set Attributes
-	UIHUDWidget->InitFromCharacter();
-
-	// Actually add to viewport now
-	UIHUDWidget->AddToViewport();
 }
 
 void AGSCALSPlayerController::BeginPlayingState()

@@ -3,13 +3,14 @@
 
 #include "GSCALSCharacter.h"
 
+#include "AbilitySystemComponent.h"
+#include "AbilitySystemGlobals.h"
 #include "Abilities/GSCTypes.h"
 #include "Components/GSCAbilityQueueComponent.h"
 #include "Components/GSCComboManagerComponent.h"
 #include "Components/GSCCoreComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Player/GSCPlayerController.h"
-#include "Player/GSCPlayerState.h"
+#include "GameFramework/PlayerState.h"
 
 AGSCALSCharacter::AGSCALSCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -46,7 +47,7 @@ AGSCALSCharacter::AGSCALSCharacter(const FObjectInitializer& ObjectInitializer) 
 	UCharacterMovementComponent* CMC = GetCharacterMovement();
 	CMC->MaxAcceleration = 1500.f;
 	CMC->BrakingFrictionFactor = 0.f;
-	CMC->CrouchedHalfHeight = 60.f;
+	CMC->SetCrouchedHalfHeight(60.f);
 	CMC->MinAnalogWalkSpeed = 25.f;
 	CMC->bCanWalkOffLedgesWhenCrouching = true;
 	CMC->AirControl = 0.15f;
@@ -61,51 +62,29 @@ UAbilitySystemComponent* AGSCALSCharacter::GetAbilitySystemComponent() const
 	return AbilitySystemComponent.Get();
 }
 
-UGSCCoreComponent* AGSCALSCharacter::GetCompanionCoreComponent() const
-{
-	return GSCCoreComponent;
-}
-
-UGSCComboManagerComponent* AGSCALSCharacter::GetComboManagerComponent() const
-{
-	return GSCComboComponent;
-}
-
-UGSCAbilityQueueComponent* AGSCALSCharacter::GetAbilityQueueComponent() const
-{
-	return GSCAbilityQueueComponent;
-}
-
-TArray<const UAttributeSet*> AGSCALSCharacter::GetAttributeSets() const
-{
-	return AttributeSets;
-}
-
 void AGSCALSCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	AGSCPlayerState* PS = GetPlayerState<AGSCPlayerState>();
-	if (PS)
+	if (APlayerState* PS = GetPlayerState<APlayerState>())
 	{
 		// Set the ASC on the Server. Clients do this in OnRep_PlayerState()
-		AbilitySystemComponent = Cast<UAbilitySystemComponent>(PS->GetAbilitySystemComponent());
+		AbilitySystemComponent = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(PS);
+		if (!AbilitySystemComponent.IsValid())
+		{
+			return;
+		}
+
 		GSCCoreComponent->SetupOwner();
 		GSCAbilityQueueComponent->SetupOwner();
 		GSCComboComponent->SetupOwner();
 
 		// Update parent's reference to AttributeSets
-		AttributeSets = PS->AttributeSets;
+		// AttributeSets = PS->AttributeSets;
 
 		// AI won't have PlayerControllers so we can init again here just to be sure. No harm in initiating twice for heroes that have PlayerControllers.
-		GSCCoreComponent->SetupAbilityActor(PS->GetAbilitySystemComponent(), PS, this);
-
-		// UI init
-		AGSCPlayerController* PC = Cast<AGSCPlayerController>(GetController());
-		if (PC)
-		{
-			PC->CreateHUD();
-		}
+		// TODO: ...
+		// GSCCoreComponent->SetupAbilityActor(AbilitySystemComponent.Get(), PS, this);
 	}
 }
 
@@ -121,11 +100,14 @@ void AGSCALSCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
 
-	AGSCPlayerState* PS = GetPlayerState<AGSCPlayerState>();
-	if (PS)
+	if (APlayerState* PS = GetPlayerState<APlayerState>())
 	{
 		// Set the ASC for clients. Server does this in PossessedBy.
-		AbilitySystemComponent = Cast<UAbilitySystemComponent>(PS->GetAbilitySystemComponent());
+		AbilitySystemComponent = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(PS);
+		if (!AbilitySystemComponent.IsValid())
+		{
+			return;
+		}
 
 		// Setup owner again on components to update ASC ref
 		GSCCoreComponent->SetupOwner();
@@ -133,7 +115,7 @@ void AGSCALSCharacter::OnRep_PlayerState()
 		GSCComboComponent->SetupOwner();
 
 		// Update parent's reference to AttributeSets
-		AttributeSets = PS->AttributeSets;
+		// AttributeSets = PS->AttributeSets;
 
 		// Init ASC Actor Info for clients. Server will init its ASC when it possesses a new Actor.
 		AbilitySystemComponent->InitAbilityActorInfo(PS, this);
@@ -143,14 +125,8 @@ void AGSCALSCharacter::OnRep_PlayerState()
 
 		// If we handle players disconnecting and rejoining in the future, we'll have to change this so that possession from rejoining doesn't reset attributes.
 		// For now assume possession = spawn/respawn.
-		GSCCoreComponent->InitializeAttributes();
-
-		// UI init
-		AGSCPlayerController* PC = Cast<AGSCPlayerController>(GetController());
-		if (PC)
-		{
-			PC->CreateHUD();
-		}
+		// TODO: ...
+		// GSCCoreComponent->InitializeAttributes();
 	}
 }
 
@@ -163,14 +139,15 @@ void AGSCALSCharacter::BindASCInput()
 
 	if (AbilitySystemComponent.IsValid() && IsValid(InputComponent))
 	{
-		AbilitySystemComponent->BindAbilityActivationToInputComponent(
-			InputComponent,
-			FGameplayAbilityInputBinds(FString("ConfirmTarget"),
-			FString("CancelTarget"),
-			FString("EGSCAbilityInputID"),
-			static_cast<int32>(EGSCAbilityInputID::Confirm),
-			static_cast<int32>(EGSCAbilityInputID::Cancel))
-		);
+		// TOOD: ...
+		// AbilitySystemComponent->BindAbilityActivationToInputComponent(
+		// 	InputComponent,
+		// 	FGameplayAbilityInputBinds(FString("ConfirmTarget"),
+		// 	FString("CancelTarget"),
+		// 	FString("EGSCAbilityInputID"),
+		// 	static_cast<int32>(EGSCAbilityInputID::Confirm),
+		// 	static_cast<int32>(EGSCAbilityInputID::Cancel))
+		// );
 
 		bASCInputBound = true;
 	}

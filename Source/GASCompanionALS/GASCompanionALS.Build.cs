@@ -26,7 +26,8 @@ public class GASCompanionALS : ModuleRules
 			new string[]
 			{
 				"Core",
-				"InputCore"
+				"InputCore",
+				"ALSV4_CPP"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -40,7 +41,6 @@ public class GASCompanionALS : ModuleRules
 				"Slate",
 				"SlateCore",
 				"GASCompanion",
-				"ALSV4_CPP",
 				"GameplayAbilities",
 				"GameplayTags",
 				"GameplayTasks",
